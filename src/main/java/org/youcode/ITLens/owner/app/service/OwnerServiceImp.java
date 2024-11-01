@@ -20,12 +20,7 @@ public class OwnerServiceImp implements OwnerService {
 
     @Override
     public OwnerResponseDTO getOwnerById(Long id){
-        Owner o = null;
-        if (ownerPersistenceAdapter.findById(id).isPresent()){
-            o = ownerPersistenceAdapter.findById(id).get();
-            System.out.println(o.getName());
-            return ownerEntityToOwnerResponseDTOMapper.entityToDto(o);
-        }
-        return null;
+        Owner o = ownerPersistenceAdapter.findById(id).get();
+        return ownerEntityToOwnerResponseDTOMapper.entityToDto(o);
     }
 }
