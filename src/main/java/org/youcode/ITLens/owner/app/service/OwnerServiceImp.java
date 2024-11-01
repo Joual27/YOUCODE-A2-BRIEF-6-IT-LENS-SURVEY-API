@@ -23,4 +23,9 @@ public class OwnerServiceImp implements OwnerService {
         Owner o = ownerPersistenceAdapter.findById(id).get();
         return ownerEntityToOwnerResponseDTOMapper.entityToDto(o);
     }
+
+    @Override
+    public Owner getOwnerEntityById(Long id){
+        return ownerPersistenceAdapter.findById(id).get();
+    }
 }

@@ -1,11 +1,11 @@
 package org.youcode.ITLens.survey.core.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import org.youcode.ITLens.common.BaseEntity;
 import org.youcode.ITLens.owner.core.entities.Owner;
+import org.youcode.ITLens.surveyEdition.core.entity.SurveyEdition;
+
+import java.util.List;
 
 
 @Entity
@@ -16,9 +16,12 @@ public class Survey extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name = "OWNER_ID")
     private Owner owner;
+
+    @OneToMany(mappedBy = "survey" , fetch = FetchType.EAGER , cascade = CascadeType.REFRESH)
+    private List<SurveyEdition> editions;
     public Survey() {}
 
     public Survey(String title, String description) {
@@ -48,5 +51,13 @@ public class Survey extends BaseEntity {
 
     public void setOwner(Owner owner) {
         this.owner = owner;
+    }
+
+    public List<SurveyEdition> getEditions() {
+        return editions;
+    }
+
+    public void setEditions(List<SurveyEdition> editions) {
+        this.editions = editions;
     }
 }
