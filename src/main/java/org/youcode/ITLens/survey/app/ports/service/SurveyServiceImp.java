@@ -8,7 +8,7 @@ import org.youcode.ITLens.survey.core.entity.Survey;
 public class SurveyServiceImp implements SurveyService {
 
     public SurveyResponseDTO save(CreateSurveyDTO surveyData){
-//        Survey surveyToCreate =
+        Survey surveyToCreate =
     }
 
 }

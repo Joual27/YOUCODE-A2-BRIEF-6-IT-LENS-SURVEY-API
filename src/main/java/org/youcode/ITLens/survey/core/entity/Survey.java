@@ -2,6 +2,7 @@ package org.youcode.ITLens.survey.core.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import org.youcode.ITLens.common.BaseEntity;
 import org.youcode.ITLens.owner.core.entities.Owner;
@@ -15,7 +16,8 @@ public class Survey extends BaseEntity {
     @Column(name = "DESCRIPTION")
     private String description;
 
-    @ManyToOne()
+    @ManyToOne
+    @JoinColumn(name = "OWNER_ID")
     private Owner owner;
     public Survey() {}
 
@@ -40,4 +42,11 @@ public class Survey extends BaseEntity {
         this.description = description;
     }
 
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
 }
