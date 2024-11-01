@@ -1,5 +1,4 @@
 package org.youcode.ITLens.utils.validators.interfaces;
-
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;
 import org.youcode.ITLens.utils.validators.IdExistsValidator;
@@ -13,8 +12,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.PARAMETER , ElementType.FIELD})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Exists {
-    String message () default "There was no record found with given ID !";
-    Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
     Class<?> entityClass();
+
+    String message() default "";
+
+    Class<?>[] groups() default {};
+
+    Class<? extends Payload>[] payload() default {};
 }

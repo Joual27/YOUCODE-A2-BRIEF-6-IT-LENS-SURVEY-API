@@ -1,46 +1,45 @@
 package org.youcode.ITLens.utils.validators;
 
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.youcode.ITLens.common.exceptions.EntityNotFoundException;
 import org.youcode.ITLens.utils.validators.interfaces.Exists;
 
-import java.util.Optional;
-
 @Component
-public class IdExistsValidator implements ConstraintValidator<Exists , Long> {
+public class IdExistsValidator implements ConstraintValidator<Exists, Long> {
 
-    private final ApplicationContext applicationContext;
+    @PersistenceContext
+    private EntityManager entityManager;
+
     private Class<?> entityClass;
 
-    public IdExistsValidator (ApplicationContext applicationContext){
-        this.applicationContext = applicationContext;
-    }
-
     @Override
-    public void initialize(Exists annotation){
+    public void initialize(Exists annotation) {
         this.entityClass = annotation.entityClass();
     }
 
     @Override
-    public boolean isValid(Long id , ConstraintValidatorContext context){
-        if (id == null){
+    public boolean isValid(Long id, ConstraintValidatorContext context) {
+        if (id == null) {
+            context.disableDefaultConstraintViolation();
+            context.buildConstraintViolationWithTemplate("ID must not be null.")
+                    .addConstraintViolation();
             return false;
         }
-        String daoBean = entityClass.getSimpleName() + "PersistenceAdapter";
-        Object dao = applicationContext.getBean(daoBean);
-        try {
-            var method = dao.getClass().getMethod("findById", Long.class);
-            Optional<?> optionalEntity = (Optional<?>) method.invoke(dao, id);
 
-            if (!optionalEntity.isPresent()) {
-                throw new EntityNotFoundException("No record of type " + entityClass.getSimpleName() + " with ID " + id + " was found.");
+        try {
+            Object entity = entityManager.find(entityClass, id);
+            if (entity == null) {
+                context.disableDefaultConstraintViolation();
+                context.buildConstraintViolationWithTemplate("No " + entityClass.getSimpleName() + " Was found with given ID!")
+                        .addConstraintViolation();
+                return false;
             }
             return true;
         } catch (Exception e) {
-            throw new RuntimeException(e.getMessage());
+            throw new RuntimeException("Unexpected error during validation: " + e.getMessage(), e);
         }
     }
 }
