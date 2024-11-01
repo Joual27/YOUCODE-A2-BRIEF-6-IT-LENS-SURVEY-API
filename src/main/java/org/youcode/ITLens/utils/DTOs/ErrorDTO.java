@@ -1,4 +1,4 @@
-package org.youcode.ITLens.utils.validators;
+package org.youcode.ITLens.utils.DTOs;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 
