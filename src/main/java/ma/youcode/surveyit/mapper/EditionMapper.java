@@ -7,7 +7,7 @@ import ma.youcode.surveyit.entity.Edition;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring" , uses = SurveyMapper.class)
 public interface EditionMapper {
 
     EditionResponseDTO toResponseDTO(Edition edition);

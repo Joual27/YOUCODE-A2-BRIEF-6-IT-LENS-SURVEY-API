@@ -18,7 +18,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/questions")
+@RequestMapping("/api/v1/questions")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class QuestionController {
 
@@ -30,7 +31,6 @@ public class QuestionController {
         int index  = page > 0 ? page - 1 : 0;
 
         Page<QuestionResponseDTO> questionsPage = service.getAllQuestions(index , size);
-
         return Response.success(200,
                 "Questions retrieve successfully",
                 "questions",

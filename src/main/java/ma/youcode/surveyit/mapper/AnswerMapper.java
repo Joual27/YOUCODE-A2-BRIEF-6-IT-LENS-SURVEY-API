@@ -10,7 +10,6 @@ import org.mapstruct.Mapper;
 public interface AnswerMapper {
 
     AnswerResponseDTO toResponseDTO(Answer answer);
-
     Answer toAnswer(AnswerCreateDTO dto);
     Answer toAnswer(AnswerUpdateDTO dto);
 

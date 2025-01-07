@@ -32,7 +32,6 @@ public class SurveyServiceImp implements SurveyService {
     @Override
     @Transactional
     public SurveyResponseDTO createSurvey(SurveyCreateDTO dto) {
-
         Owner owner = ownerService.getOwnerEntity(dto.ownerId());
 
         Survey survey = mapper.toSurvey(dto);

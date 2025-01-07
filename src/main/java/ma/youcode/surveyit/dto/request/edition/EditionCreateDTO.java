@@ -15,7 +15,6 @@ public record EditionCreateDTO(
         @NotNull int year,
         @NotNull @Exists(entity = Survey.class , message = "Survey not found.") Long surveyId
 ) implements Serializable {
-
     @AssertTrue(message = "Year must be valid")
     public boolean isValidYear(){
         return year >= Year.now().getValue();

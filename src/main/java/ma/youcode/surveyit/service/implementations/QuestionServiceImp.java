@@ -50,7 +50,7 @@ public class QuestionServiceImp implements QuestionService {
 
     @Override
     public void deleteQuestion(Long id) {
-        repository.deleteById(id);
+        repository.delete(id);
     }
 
     @Override

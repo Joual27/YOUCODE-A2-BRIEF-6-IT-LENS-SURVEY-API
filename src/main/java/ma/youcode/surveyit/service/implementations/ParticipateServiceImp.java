@@ -25,22 +25,18 @@ public class ParticipateServiceImp implements ParticipateService {
 
     @Override
     public void participateProcess(Object dto) {
-
         if (dto instanceof ParticipateDTO.Responses responses) {
             for (ParticipateDTO.Response response : responses.responses()) {
                 handleResponse(response);
             }
-
-        }else  {
+        }else {
             ParticipateDTO.Response response = (ParticipateDTO.Response) dto;
             handleResponse(response);
         }
-
     }
 
     private void handleResponse(ParticipateDTO.Response response) {
         Question question = questionService.findQuestionById(response.questionId());
-
         switch (question.getType()) {
             case MULTI_CHOICE -> handleMultiChoice(response , question);
             case SINGLE_CHOICE -> handleSingleChoice(response , question);
@@ -53,7 +49,6 @@ public class ParticipateServiceImp implements ParticipateService {
         if (response.answers() != null && !response.answers().isEmpty()) {
             throw new IllegalArgumentException("Single-choice question cannot have multiple answers.");
         }
-
         if (response.answerId() != null) {
             Answer answer = answerService.findAnswerById(response.answerId());
             question.setAnswerCount(question.getAnswerCount() + 1);

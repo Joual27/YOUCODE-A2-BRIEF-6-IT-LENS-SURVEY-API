@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/api/surveys")
+@RequestMapping("/api/v1/surveys")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class SurveyController {
 
@@ -31,7 +32,7 @@ public class SurveyController {
     private final ParticipateService participateService;
 
     @GetMapping
-    public ResponseEntity<SuccessResponseDTO> surveys(@RequestParam(defaultValue = "0") int page , @RequestParam(defaultValue = "1") int size) {
+    public ResponseEntity<SuccessResponseDTO> surveys(@RequestParam(defaultValue = "0") int page , @RequestParam(defaultValue = "10") int size) {
 
         int index  = page > 0 ? page - 1 : 0;
         Page<SurveyResponseDTO> pageSurvey = service.getAllSurveys(index , size);
@@ -105,7 +106,6 @@ public class SurveyController {
 
     @PostMapping("{surveyId}/participate")
     public ResponseEntity<SuccessResponseDTO> participate(@RequestBody String request , @PathVariable Long surveyId){
-
         Object dto =  Converter.process(request);
         participateService.participateProcess(dto);
 

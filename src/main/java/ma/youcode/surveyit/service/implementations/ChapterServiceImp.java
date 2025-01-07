@@ -30,7 +30,6 @@ public class ChapterServiceImp implements ChapterService {
 
     @Override
     public ChapterResponseDTO createChapter(ChapterCreateDTO dto, Long id) {
-
         Chapter toChapter = mapper.toChapter(dto);
         Optional<Chapter> optionalChapter = repository.findById(id);
 
@@ -43,7 +42,6 @@ public class ChapterServiceImp implements ChapterService {
         }
 
         return mapper.toResponseDTO(repository.save(toChapter));
-
     }
 
 

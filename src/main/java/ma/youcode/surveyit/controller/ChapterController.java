@@ -22,7 +22,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class ChapterController {
 
@@ -79,7 +80,6 @@ public class ChapterController {
     }
 
     //    Update subchapter
-
     @PutMapping("/subchapters/{id}")
     public ResponseEntity<SuccessResponseDTO> editSubChapter(
             @Valid
@@ -97,7 +97,7 @@ public class ChapterController {
         );
     }
 
-// Add subchapter
+    // Add subchapter
     @PostMapping("chapters/{chapterId}/subchapters")
     public ResponseEntity<SuccessResponseDTO> createSubchapter(
             @Valid @RequestBody ChapterCreateDTO dto , @Valid @PathVariable @Exists(entity = Chapter.class , message = "Chapter not found.") Long chapterId
@@ -109,6 +109,8 @@ public class ChapterController {
                 response
         );
     }
+
+
     @PostMapping("subchapters/{subchapterId}/questions")
     public ResponseEntity<SuccessResponseDTO> createQuestion(
             @Valid @RequestBody QuestionCreateDTO dto , @Valid @PathVariable @Exists(entity = Chapter.class , message = "Subchapter not found.") Long subchapterId

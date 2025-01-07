@@ -21,7 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/editions")
+@RequestMapping("/api/v1/editions")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class EditionController {
 
@@ -85,7 +86,6 @@ public class EditionController {
     public ResponseEntity<SuccessResponseDTO> createChapter(
             @Valid @PathVariable @Exists(entity = Edition.class , message = "Edition not found.") Long editionId,@Valid @RequestBody ChapterCreateDTO dto
     ) {
-
         ChapterResponseDTO response = chapterService.createChapter(dto , editionId);
         return Response.success(201, "Chapter Created successfully", "chapter", response);
     }

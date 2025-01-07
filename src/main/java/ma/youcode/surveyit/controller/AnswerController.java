@@ -20,7 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/answers")
+@RequestMapping("/api/v1/answers")
+@CrossOrigin(origins = "http://localhost:4200")
 @AllArgsConstructor
 public class AnswerController {
 
