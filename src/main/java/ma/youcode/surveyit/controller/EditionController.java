@@ -23,7 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/editions")
 @CrossOrigin(origins = "http://localhost:4200")
-@AllArgsConstructor
+@AllArgsConstructor 
 public class EditionController {
 
     private final EditionService service;
@@ -65,7 +65,7 @@ public class EditionController {
     @PutMapping("/{id}")
     public ResponseEntity<SuccessResponseDTO> edit(
             @PathVariable
-            @Valid @Exists(entity = Edition.class, message = "Edition Not Found") Long id,
+            @Valid @Exists( entity = Edition.class, message = "Edition Not Found") Long id,
             @RequestBody @Valid EditionUpdateDTO dto
     ) {
 
