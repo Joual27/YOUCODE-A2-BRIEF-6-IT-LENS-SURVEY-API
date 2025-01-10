@@ -20,6 +20,6 @@ public class Owner extends User{
 
     @Override
     public String getUserRole() {
-        return "ROLE_OWNER";
+        return "OWNER";
     }
 }
