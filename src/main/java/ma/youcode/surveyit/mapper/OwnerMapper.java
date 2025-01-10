@@ -9,12 +9,10 @@ import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")
 public interface OwnerMapper {
-
     OwnerResponseDTO toResponseDTO(Owner owner);
     OwnerEmbeddedDTO toEmbeddedDTO(Owner owner);
 
     Owner toOwner(OwnerCreateDTO dto);
     Owner toOwner(OwnerUpdateDTO dto);
-
 
 }
